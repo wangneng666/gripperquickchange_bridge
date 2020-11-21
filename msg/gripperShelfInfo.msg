@@ -1,0 +1,3 @@
+int32 index_shelfPose
+string gripper_name
+bool is_hasGripper

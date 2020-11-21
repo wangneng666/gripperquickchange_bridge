@@ -1,0 +1,4 @@
+string switchGripperName
+---
+bool is_success
+string info

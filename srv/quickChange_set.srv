@@ -1,0 +1,6 @@
+int32 SetgripperShelfSize
+gripperShelfInfo[] Setgrippershelf
+robotToolInfo Setrobottool
+---
+bool is_success
+string info

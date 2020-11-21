@@ -1,0 +1,5 @@
+gripperShelf_4p SetGripperShelf
+robotToolInfo Setrobottool
+---
+bool is_success
+string info

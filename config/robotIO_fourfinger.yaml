@@ -1,0 +1,7 @@
+parameters:
+  airpowere:
+    robotIp: 10.10.56.214
+    robotPort: 23234
+    portIndex: 2
+    openVlaue: false
+    closeValue: true

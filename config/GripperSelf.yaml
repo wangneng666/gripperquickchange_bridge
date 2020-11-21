@@ -1,0 +1,49 @@
+gripperSelf:
+  index_SelfPose_0:
+    gripper_name: fourfingerGripper
+    is_hasGripper: false
+    gripper_sort: robotIO_fourfinger
+    progSelect_unload: 10
+    progSelect_load: 15
+    UnloadMovePose_1: [[0,0,0,0,0,0],[1,1,1,1,1,1],[2,2,2,2,2,2]]
+    UnloadMovePose_2: [[3,3,3,3,3,3],[4,4,4,4,4,4]]
+    loadMovePose_1: [[0,0,0,0,0,0],[1,1,1,1,1,1],[2,2,2,2,2,2]]
+    loadMovePose_2: [[3,3,3,3,3,3],[4,4,4,4,4,4]]
+
+  index_SelfPose_1:
+    gripper_name: noPowerGripper
+    is_hasGripper: false
+    gripper_sort: noPower
+    progSelect_unload: 11
+    progSelect_load: 16
+    UnloadMovePose_1: [[0,0,0,0,0,0],[1,1,1,1,1,1],[2,2,2,2,2,2]]
+    UnloadMovePose_2: [[3,3,3,3,3,3],[4,4,4,4,4,4]]
+    loadMovePose_1: [[0,0,0,0,0,0],[1,1,1,1,1,1],[2,2,2,2,2,2]]
+    loadMovePose_2: [[3,3,3,3,3,3],[4,4,4,4,4,4]]
+
+  index_SelfPose_2:
+    gripper_name: twofingerGripper
+    is_hasGripper: false
+    gripper_sort: robotIO_twofinger
+    progSelect_unload: 12
+    progSelect_load: 17
+    UnloadMovePose_1: [[0,0,0,0,0,0],[1,1,1,1,1,1],[2,2,2,2,2,2]]
+    UnloadMovePose_2: [[3,3,3,3,3,3],[4,4,4,4,4,4]]
+    loadMovePose_1: [[0,0,0,0,0,0],[1,1,1,1,1,1],[2,2,2,2,2,2]]
+    loadMovePose_2: [[3,3,3,3,3,3],[4,4,4,4,4,4]]
+
+  index_SelfPose_3:
+    gripper_name: fivefingerGripper
+    is_hasGripper: false
+    gripper_sort: serial_gripper_fivefinger
+    progSelect_unload: 13
+    progSelect_load: 18
+    UnloadMovePose_1: [[0,0,0,0,0,0],[1,1,1,1,1,1],[2,2,2,2,2,2]]
+    UnloadMovePose_2: [[3,3,3,3,3,3],[4,4,4,4,4,4]]
+    loadMovePose_1: [[0,0,0,0,0,0],[1,1,1,1,1,1],[2,2,2,2,2,2]]
+    loadMovePose_2: [[3,3,3,3,3,3],[4,4,4,4,4,4]]
+
+  RobToolSelf:
+    gripper_name: no
+    is_hasGripper: false
+    gripper_sort: noPower

@@ -1,0 +1,3 @@
+string gripper_name
+bool is_hasGripper
+string gripper_sort
