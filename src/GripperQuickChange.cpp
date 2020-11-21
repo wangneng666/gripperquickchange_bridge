@@ -40,7 +40,9 @@ void GripperQuickChange::parseConfigYmal() {
 
 int GripperQuickChange::init_GripperSelf() {
     parseConfigYmal();
-    hsc3RobotMove.init();
+    if(hsc3RobotMove.init()!=0){
+        return -1;
+    }
 ////    //如果机器人工具盘上无夹具，则收拢卡盘顶珠
 //    if(gripperSelf->RobToolSelf.is_hasGripper== false){
 //        Hsc3apiInstance::getInstance()->setDout(1, true);

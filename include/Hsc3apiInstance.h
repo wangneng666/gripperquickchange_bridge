@@ -91,6 +91,9 @@ public:
 
     int setDout(int32_t portIndex, bool value);
 
+    int getGpEn(int8_t gpId, bool & en);
+
+
 };
 
 

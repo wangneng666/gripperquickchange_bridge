@@ -122,5 +122,12 @@ int Hsc3apiInstance::setDout(int32_t portIndex, bool value) {
     return ret;
 }
 
+int Hsc3apiInstance::getGpEn(int8_t gpId, bool &en) {
+    if(!hsc3ReConnect()){
+        return -1;
+    }
+    return proMo->getGpEn(gpId,en);
+}
+
 
 

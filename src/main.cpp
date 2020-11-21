@@ -8,12 +8,15 @@
 using namespace std;
 
 
-
 GripperQuickChange gripperQuickChange;
 
 bool QuickChange_setCB(gripperquickchange_bridge::quickChange_set4::Request &req, gripperquickchange_bridge::quickChange_set4::Response &res)
 {
-    gripperQuickChange.init_GripperSelf();
+    if(gripperQuickChange.init_GripperSelf()!=0){
+        res.is_success= false;
+        cout<<"server failed"<<endl;
+        return true;
+    }
     gripperQuickChange.gripperSelf->RobToolSelf.gripper_name=req.Setrobottool.gripper_name;
     gripperQuickChange.gripperSelf->RobToolSelf.is_hasGripper=req.Setrobottool.is_hasGripper;
     gripperQuickChange.gripperSelf->RobToolSelf.grippersort=gripperQuickChange.gripperSelf->map_GripperSort[req.Setrobottool.gripper_sort];
@@ -32,6 +35,7 @@ bool QuickChange_setCB(gripperquickchange_bridge::quickChange_set4::Request &req
 //        }
 //    }
     gripperQuickChange.printInfo();
+    res.is_success= true;
     return true;
 }
 
@@ -48,7 +52,6 @@ bool QuickChange_runCB(gripperquickchange_bridge::quickChange_run::Request &req,
 }
 
 int main(int argc,char** argv){
-
     //ros节点
     string nodeName = "gripperquickchange_bridge";
     ros::init(argc, argv, nodeName);

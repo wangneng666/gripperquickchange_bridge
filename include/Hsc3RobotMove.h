@@ -57,13 +57,7 @@ public:
      */
     int RobMove_loadGripper(RValueProg setSignal);
 
-    /***
-     * 夹具连接器动作完成通知
-     * @return
-     */
-    int notify_GripperConnector();
-
-    bool isNeed_GripperConnector();
+    bool isEnable_robot();
 
     int comm_robActionSignal(int32_t setSignal,int32_t revSignal);
 

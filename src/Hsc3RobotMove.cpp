@@ -17,10 +17,13 @@ int Hsc3RobotMove::init() {
         return -1;
     } else{
         cout<<"机器人连接成功"<<endl;
-
     }
     //清理R寄存器的值
 //    clear_Rvalue();
+    if(isEnable_robot()== false){
+        cout<<"机器人未上使能，请先上使能"<<endl;
+        return -1;
+    }
     //加载一次机器人程序
     ret = Hsc3apiInstance::getInstance()->setStartUpProject("GQC.PRG");
     if(ret!=0){
@@ -138,6 +141,19 @@ int Hsc3RobotMove::setJR_jointpose(int8_t gpId, int32_t index, const vector<doub
     jntPos.vecPos=data;
     Hsc3apiInstance::getInstance()->setJR(gpId,index,jntPos);
     return 0;
+}
+
+bool Hsc3RobotMove::isEnable_robot() {
+    bool en=false;
+    if(Hsc3apiInstance::getInstance()->getGpEn(0,en)!=0){
+        return false;
+    }
+    if(en){
+        cout<<"enable true"<<endl;
+    } else{
+        cout<<"enable false"<<endl;
+    }
+    return en;
 }
 
 
