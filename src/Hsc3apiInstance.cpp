@@ -40,6 +40,11 @@ int Hsc3apiInstance::connect(const std::string &strIp, uint16_t uPort) {
     return ret;
 }
 
+bool Hsc3apiInstance::is_connect() {
+
+    return commapi->isConnected();
+}
+
 bool Hsc3apiInstance::hsc3ReConnect() {
     int ret=0;
     if(!(commapi->isConnected())){

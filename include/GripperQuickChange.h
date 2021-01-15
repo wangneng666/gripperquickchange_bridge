@@ -7,6 +7,8 @@
 #include "yaml-cpp/yaml.h"
 #include <iostream>
 #include <map>
+#include "ros/ros.h"
+#include "ros/package.h"
 using namespace std;
 using namespace hirop_gripper;
 
@@ -17,6 +19,8 @@ public:
     ~GripperQuickChange();
     //加载配置文件
     void parseConfigYmal();
+    //运行机器人示教程序
+    int runOrStopRbProg(string programName,bool flag_run);
     //初始化夹具架信息
     int init_GripperSelf();
     //快换某夹具
@@ -31,7 +35,6 @@ public:
     void printInfo();
     //打印点位信息
     void printPoseInfo(GripperPose & _vv);
-
     //刷新夹具架基本信息
     void updateShelfinfo();
 
@@ -39,6 +42,7 @@ public:
     GripperSelf* gripperSelf;
     Hsc3RobotMove hsc3RobotMove;
     GripperManage gripperManage;
+    string err_message;
 };
 
 

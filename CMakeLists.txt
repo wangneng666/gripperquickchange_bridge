@@ -10,27 +10,29 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rosmsg
   rospy
-message_generation
+  hirop_msgs
+  roslib
+   #message_generation
 )
-add_message_files(
-        FILES
-        robotToolInfo.msg
-        gripperShelfInfo.msg
-        gripperShelf_4p.msg
-)
-## Generate services in the 'srv' folder
-add_service_files(
-        FILES
-        quickChange_run.srv
-        quickChange_set.srv
-        quickChange_set4.srv
-)
+#add_message_files(
+#       FILES
+#       robotToolInfo.msg
+#       gripperShelfInfo.msg
+#       gripperShelf_4p.msg
+#)
+### Generate services in the 'srv' folder
+#add_service_files(
+#       FILES
+#       quickChange_run.srv
+#       quickChange_set.srv
+#       quickChange_set4.srv
+#)
 
-## Generate added messages and services with any dependencies listed here
-generate_messages(
-        DEPENDENCIES
-        std_msgs  # Or other packages containing msgs
-)
+# Generate added messages and services with any dependencies listed here
+#generate_messages(
+#       DEPENDENCIES
+#       std_msgs  # Or other packages containing msgs
+#)
 
 
 find_package(hirop_gripper REQUIRED)
@@ -52,7 +54,7 @@ include_directories(
   include
   3rd/include/
   3rd/include/proxy
-  /home/de/catkin_ws_v3/devel/include
+  /home/fshs/catkin_ws/devel/include
   ${catkin_INCLUDE_DIRS}
   ${hirop_gripper_INCLUDE_DIRS}
 )

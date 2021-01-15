@@ -1,0 +1,5 @@
+---
+string robotTool_gripper_name
+bool robotTool_hasGripper
+bool is_success
+string info

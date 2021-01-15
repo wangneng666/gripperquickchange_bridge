@@ -1,0 +1,5 @@
+string tp_progName
+int32 R_register
+---
+bool is_success
+string info

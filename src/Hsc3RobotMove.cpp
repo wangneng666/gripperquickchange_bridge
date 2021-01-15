@@ -1,31 +1,32 @@
 #include "Hsc3RobotMove.h"
 
 Hsc3RobotMove::Hsc3RobotMove() {
+    stop= false;
 }
 
 Hsc3RobotMove::~Hsc3RobotMove() {
 
 }
 
-int Hsc3RobotMove::init() {
+int Hsc3RobotMove::RunProg(string programName ) {
     int ret=0;
     //设备连接
-    ret=Hsc3apiInstance::getInstance()->connect("10.10.56.214",23234);
-//    ret=0;
+    if(!Hsc3apiInstance::getInstance()->is_connect()){
+        ret=Hsc3apiInstance::getInstance()->connect("10.10.56.214",23234);
+    }
     if(ret!=0){
         cout<<"机器人连接失败 "<<endl;
         return -1;
     } else{
         cout<<"机器人连接成功"<<endl;
     }
-    //清理R寄存器的值
-//    clear_Rvalue();
     if(isEnable_robot()== false){
         cout<<"机器人未上使能，请先上使能"<<endl;
         return -1;
     }
     //加载一次机器人程序
-    ret = Hsc3apiInstance::getInstance()->setStartUpProject("GQC.PRG");
+//    ret = Hsc3apiInstance::getInstance()->setStartUpProject("GQC.PRG");
+    ret = Hsc3apiInstance::getInstance()->setStartUpProject(programName);
     if(ret!=0){
         cout<<"机器人程序启动失败"<<endl;
         return -2;
@@ -35,9 +36,9 @@ int Hsc3RobotMove::init() {
     return 0;
 }
 
-int Hsc3RobotMove::programRunQuit() {
-    Hsc3apiInstance::getInstance()->setStopProject("GQC.PRG");
-    cout<<"机器人程序退出完成"<<endl;
+int Hsc3RobotMove::programRunQuit(string programName) {
+    stop=true;
+    Hsc3apiInstance::getInstance()->setStopProject(programName);
     return 0;
 }
 
@@ -94,7 +95,7 @@ int Hsc3RobotMove::comm_robActionSignal(int32_t setSignal, int32_t revSignal) {
 }
 
 int Hsc3RobotMove::waitRSignal(int32_t rValue,double value) {
-    bool stop= false;
+    stop= false;
     double revSignalFinish=0;
     int time_count=0;
     while (!stop)
@@ -109,17 +110,19 @@ int Hsc3RobotMove::waitRSignal(int32_t rValue,double value) {
         {
             Hsc3apiInstance::getInstance()->setR(rValue,0.0);
             cout<<"检测到动作完成"<<endl;
-            stop= true;
             break;
         }
         //超时判断
-        if(time_count>200)
+        if(time_count>60)
         {
             cout<<"机器人去到夹具卸载点失败"<<endl;
-            return -1;
+            return -2;
         }
         time_count++;
         this_thread::sleep_for(chrono::seconds(1));
+    }
+    if(stop){
+        return -3;
     }
     return 0;
 }

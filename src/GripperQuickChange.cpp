@@ -10,7 +10,7 @@ GripperQuickChange::~GripperQuickChange(){
 
 void GripperQuickChange::parseConfigYmal() {
     //参数解析
-    string configFile_path="/home/de/catkin_ws_v3/src/gripperquickchange_bridge/config/GripperSelf.yaml";
+    string configFile_path=ros::package::getPath("gripperquickchange_bridge")+"/config/GripperSelf.yaml";
     YAML::Node yaml_node=YAML::LoadFile(configFile_path);
     //装填夹具架信息
     vector<string> shelf_pose{"index_SelfPose_0","index_SelfPose_1","index_SelfPose_2","index_SelfPose_3"};
@@ -40,13 +40,6 @@ void GripperQuickChange::parseConfigYmal() {
 
 int GripperQuickChange::init_GripperSelf() {
     parseConfigYmal();
-    if(hsc3RobotMove.init()!=0){
-        return -1;
-    }
-////    //如果机器人工具盘上无夹具，则收拢卡盘顶珠
-//    if(gripperSelf->RobToolSelf.is_hasGripper== false){
-//        Hsc3apiInstance::getInstance()->setDout(1, true);
-//    }
     return 0;
 }
 
@@ -54,11 +47,13 @@ int GripperQuickChange::quickChangeGripper(string gripper_name) {
     //检查此工具在夹具架中是否具有
     if(gripperSelf->map_GripperSelf.count(gripper_name)==0){
         cout<<"map_GripperSelf中不存在"<<gripper_name<<endl;
+        err_message="夹具架中不存在此夹具!";
         return -1;
     }
     //拒绝自己更换自己
     if(gripper_name==gripperSelf->RobToolSelf.gripper_name){
         cout<<"此夹具已经在机器人工具位上，请不要重复更换"<<endl;
+        err_message="此夹具已经在机器人工具位上，请不要重复更换!";
         return -2;
     }
 
@@ -66,11 +61,13 @@ int GripperQuickChange::quickChangeGripper(string gripper_name) {
     if(gripperSelf->RobToolSelf.is_hasGripper)
     {
         if(unload_gripper(gripperSelf->RobToolSelf.gripper_name)!=0){
+            err_message="夹具卸载失败";
             cout<<"快换卸载失败"<<endl;
             return -3;
         }
     }
     if(load_gripper(gripper_name)!=0){
+        err_message="夹具安装失败";
         cout<<"快换安装失败"<<endl;
         return -4;
     }
@@ -208,7 +205,7 @@ void GripperQuickChange::printPoseInfo(GripperPose & _vv)
 }
 
 int GripperQuickChange::reConnNewGripper(string gripper_name) {
-    string configPath="/home/de/catkin_ws_v3/src/gripperquickchange_bridge/config/";
+    string configPath="/home/fshs/catkin_ws/src/gripperquickchange_bridge/config/";
     switch (gripperSelf->RobToolSelf.grippersort)
     {
         case noPower:
@@ -225,6 +222,17 @@ int GripperQuickChange::reConnNewGripper(string gripper_name) {
     }
     return 0;
 }
+
+int GripperQuickChange::runOrStopRbProg(string programName,bool flag_run) {
+    int ret=0;
+    if(flag_run){
+        ret= hsc3RobotMove.RunProg(programName);
+    } else{
+        ret= hsc3RobotMove.programRunQuit(programName);
+    }
+    return ret;
+}
+
 
 
 

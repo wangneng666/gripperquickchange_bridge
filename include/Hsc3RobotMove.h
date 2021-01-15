@@ -2,7 +2,7 @@
 #define CPP_WORK_HSC3ROBOTMOVE_H
 
 #include "Hsc3apiInstance.h"
-
+#include "atomic"
 enum RValueProg{
     shelfP0_UnloadGripper=10,
     shelfP1_UnloadGripper,
@@ -28,22 +28,22 @@ public:
     Hsc3RobotMove();
     ~Hsc3RobotMove();
 
-private:
-    int clear_Rvalue();
 
 public:
+    int clear_Rvalue();
+    atomic<bool> stop;
 
     /***
-     * 初始化配置
+     * 启动程序
      * @return
      */
-    int init();
+    int RunProg(string programName);
 
     /***
      * 退出正在运行的程序
      * @return
      */
-    int programRunQuit();
+    int programRunQuit(string programName);
 
     /***
      * 机器人卸载夹具

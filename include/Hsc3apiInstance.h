@@ -51,6 +51,7 @@ public:
      */
     int connect(const std::string & strIp, uint16_t uPort);
 
+    bool is_connect();
     /***
      * 机器人重新连接
      * @return
